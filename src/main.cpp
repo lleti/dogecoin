@@ -1228,6 +1228,9 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 	
     if(fNewDifficultyProtocol) //DigiShield implementation - thanks to RealSolid & WDC for this code
     {
+        // amplitude filter
+        nActualTimespan = retargetTimespan + (nActualTimespan - retargetTimespan)/8;
+
 		printf("DIGISHIELD RETARGET\n");
         if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
 		if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
